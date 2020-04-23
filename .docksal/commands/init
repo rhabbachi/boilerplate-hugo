@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+## Initialize Hugo instance.
+
+# shellcheck source=/dev/null
+source "$(dirname "${BASH_SOURCE[0]}")"/inc/common.inc
+# source $PROJECT_ROOT/.docksal/commands/inc/common.inc
+
+# Abort if anything fails
+set -e
+
+if [[ $DOCKER_RUNNING == "true" ]]; then
+  fin reset -f
+else
+  fin up
+fi
+
+# Compile static site
+echo-green "Compiling a static site..."
+fin hugo
+
+# Done
+sleep 1
+echo
+echo-green "Done!"
+echo -e "  Open ${yellow}${VIRTUAL_HOST}${NC}"
+echo -e "  To develop a Hugo site with real-time updates use ${yellow}fin hugo -w -D${NC} (see README.md for details)"
+echo
+echo -e "  Read more about Hugo on https://gohugo.io/getting-started/quick-start/"

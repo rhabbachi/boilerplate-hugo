@@ -1,0 +1,11 @@
+---
+# Override docksal.yml to use image with hugo
+version: "2.1"
+
+services:
+  web:
+    labels:
+      - io.docksal.virtual-host=${VIRTUAL_HOST},*.${VIRTUAL_HOST},${VIRTUAL_HOST}.*
+      - io.docksal.cert-name=${VIRTUAL_HOST_CERT_NAME:-none}
+      - io.docksal.project-root=${PROJECT_ROOT}
+      - io.docksal.permanent=${SANDBOX_PERMANENT:-false}
